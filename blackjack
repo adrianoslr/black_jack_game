@@ -1,0 +1,60 @@
+import random
+
+
+def play_blackjack():
+    print("Bem vindo ao Virtual Blackjack, onde você pode perder seu dinheiro virtual!")
+    dealer = []
+    player = []
+    while True:
+        dealer_cards = []
+        player_cards = []
+
+        # Deal initial cards
+        dealer_cards.append(random.randint(1, 11))
+        player_cards.append(random.randint(1, 11))
+        player_cards.append(random.randint(1, 11))
+
+        print(f"Carta visivel do Dealer: {dealer_cards[0]}")
+        print(f"Suas cartas: {player_cards}, Total: {sum(player_cards)}")
+
+        # Player's turn
+        while True:
+            action = input("Quer comprar(c) ou passar(p)? ")
+            if action.lower() == "comprar" or action == "c":
+                player_cards.append(random.randint(1, 11))
+                print(f"Suas cartas: {player_cards}, Total: {sum(player_cards)}")
+                if sum(player_cards) > 21:
+                    break
+            elif action.lower() == "passar" or action == "p":
+                break
+            else:
+                print("Comando invalido, tente novamente.")
+
+        # Dealer's turn
+        while sum(dealer_cards) < 17:
+            dealer_cards.append(random.randint(1, 11))
+
+        print(f"Cartas do Dealer: {dealer_cards}, Total: {sum(dealer_cards)}")
+
+        # Determine winner
+        if sum(player_cards) > 21:
+            dealer.append(1)
+            print("Estourou! Você perdeu. Melhor sorte da próxima vez, campeão.")
+        elif sum(dealer_cards) > 21:
+            player.append(1)
+            print("Dealer estourou! Você teve sorte desta vez.")
+        elif sum(player_cards) > sum(dealer_cards):
+            player.append(1)
+            print("Você ganhou! Não deixe isso subir à sua cabeça.")
+        else:
+            dealer.append(1)
+            print("Dealer ganhou. Melhor sorte da próxima vez, meu chapa.")
+
+        print(f"\nPontução: Dealer = {len(dealer)}\tPlayer = {len(player)}\n")
+        play = input("Quer continuar a jogar? (S)im ou qualquer outra tecla para sair!")
+        if play.lower() not in ["s", "sim"]:
+            break
+
+
+if __name__ == "__main__":
+    play_blackjack()
